@@ -9,7 +9,8 @@ function DOMDisplay(game,container){
 	this.restartBtn.innerHTML = 'Restart';
 	var self = this;
 	for(var i in this.game.pegs){
-		var pegDisplay = new PegDisplay(this.game.pegs[i]);
+		var maxDiskRadius = this.game.disks.length;
+		var pegDisplay = new PegDisplay(this.game.pegs[i], maxDiskRadius);
 		this.pegElements.push(pegDisplay.element);
 		this.container.appendChild(pegDisplay.element);
 		pegDisplay.initListeners();
