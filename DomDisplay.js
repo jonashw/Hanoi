@@ -4,6 +4,9 @@ function DOMDisplay(game,container){
 	this.pegElements=[];
 	this.pegDisplays=[];
 	this.selectedPegDisplay = null;
+	this.moveCountElement=document.createElement('div');
+	this.restartBtn=document.createElement('button');
+	this.restartBtn.innerHTML = 'Restart';
 	var self = this;
 	for(var i in this.game.pegs){
 		var pegDisplay = new PegDisplay(this.game.pegs[i]);
@@ -18,6 +21,15 @@ function DOMDisplay(game,container){
 	EventRegistry.addListener(game, 'move_success', function(){
 		self.unselectPegDisplay();
 		self.display();
+	});
+	EventRegistry.addListener(game, 'restarted', function(){
+		self.unselectPegDisplay();
+		self.display();
+	});
+	this.container.appendChild(this.moveCountElement);
+	this.container.appendChild(this.restartBtn);
+	this.restartBtn.addEventListener('click',function(){
+		self.game.restart();
 	});
 }
 DOMDisplay.prototype.pegClicked = function(pegDisplay){
@@ -53,4 +65,5 @@ DOMDisplay.prototype.display = function(){
 	for(var i in this.pegDisplays){
 		this.pegDisplays[i].display();
 	}	
+	this.moveCountElement.innerHTML = 'Moves Taken: ' + game.movesTaken;
 }

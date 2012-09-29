@@ -1,19 +1,32 @@
 function Game(num_disks,num_pegs){
 	this.pegs=[];
 	this.disks=[];
-	this.movesTaken=0;
 	for (var i=0; i<num_pegs; i++){
 		this.pegs.push(new Peg(null,num_disks+1));		
 	}
 	for (var i=num_disks; i>0; i--){
 		var disk = new Disk(i);
 		this.disks.push(disk);
-		this.pegs[0].pushDisk(disk);
 	}
+	this.id = 'Game' + Math.random();
+	this.setup();
 	console.log('Game initiated with ' + num_disks + ' disks and ' + num_pegs + ' pegs');
 	console.log('You may move with the move command: move(src_pegnum, dst_pegnum)');
 	console.log('Go!');
-	this.id = 'Game' + Math.random();
+}
+Game.prototype.setup = function(){
+	this.movesTaken=0;
+	for(var i in this.disks){
+		this.pegs[0].pushDisk(this.disks[i]);
+	}
+}
+Game.prototype.restart = function(){
+	for(var i in this.pegs){
+		this.pegs[i].empty();
+	}
+	this.setup();
+	console.log('Game restarted');
+	EventRegistry.notifyListeners(this, 'restarted');
 }
 
 Game.prototype.move = function(src_pegnum, dst_pegnum){
@@ -35,7 +48,7 @@ Game.prototype.attemptMove = function(pegA, pegB){
 	}
 	pegB.pushDisk(pegA.popDisk());
 	this.movesTaken++;
-	console.log('move successful!');
+	console.log('great move!');
 	EventRegistry.notifyListeners(this, 'update');	
 	EventRegistry.notifyListeners(this, 'move_success');	
 

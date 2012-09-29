@@ -16,3 +16,6 @@ Peg.prototype.popDisk = function(){
 	this.topDisk = this.disks.length ? this.disks[this.disks.length-1] : null;//encapsulate!
 	return disk;
 }
+Peg.prototype.empty = function(){
+	this.disks = [];
+}
