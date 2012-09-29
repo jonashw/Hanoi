@@ -9,6 +9,7 @@
 	<script type="text/javascript" src="PegDisplay.js"></script>
 	<script type="text/javascript" src="ConsoleDisplay.js"></script>
 	<script type="text/javascript" src="../Core/EventRegistry.js"></script>
+	<script type="text/javascript" src="../Core/jQuery.js"></script>
 	<script>
 		function DOMDisplayController(game,domdisplay){
 			this.game=game;
@@ -16,7 +17,7 @@
 		}
 	</script>
 	<script type="text/javascript">
-		var game = new Game(4,3);
+		var game = new Game(4);
 		var domdisplay;
 		window.onload = function(){
 			domdisplay = new DOMDisplay(game, document.getElementById('towers'));
@@ -25,8 +26,6 @@
 	</script>
 	<style>
 		.PegTextArea {
-			height: 130px;
-			width: 100px;
 			cursor: pointer;
 		}
 		.PegTextArea.selected {

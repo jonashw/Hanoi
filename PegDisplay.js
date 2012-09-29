@@ -1,11 +1,14 @@
 function PegDisplay(peg,maxDiskRadius){
 	this.peg = peg;
-	this.element = document.createElement('textarea');
-	this.element.setAttribute('class','PegTextArea');
-	this.element.setAttribute('readonly','true');
 	this.id = 'PegDisplay'+Math.random();
 	this.highlighted=false;
 	this.maxDiskRadius = maxDiskRadius;
+	this.element = document.createElement('textarea');
+
+	this.element.setAttribute('class','PegTextArea');
+	this.element.setAttribute('readonly','true');
+	this.element.setAttribute('rows',this.peg.height);
+	this.element.setAttribute('cols',(this.maxDiskRadius * 2) - 1);
 }
 PegDisplay.prototype.initListeners = function(){
 	var self = this;

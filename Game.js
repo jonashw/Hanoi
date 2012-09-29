@@ -1,4 +1,5 @@
 function Game(num_disks,num_pegs){
+	var num_pegs = num_pegs ? num_pegs : 3; //3 is the default number of pegs
 	this.pegs=[];
 	this.disks=[];
 	for (var i=0; i<num_pegs; i++){
@@ -11,7 +12,7 @@ function Game(num_disks,num_pegs){
 	this.id = 'Game' + Math.random();
 	this.setup();
 	console.log('Game initiated with ' + num_disks + ' disks and ' + num_pegs + ' pegs');
-	console.log('You may move with the move command: move(src_pegnum, dst_pegnum)');
+	console.log('You may move with the move command: move(src_peg_num, dst_peg_num)');
 	console.log('Go!');
 }
 Game.prototype.setup = function(){
@@ -55,6 +56,8 @@ Game.prototype.attemptMove = function(pegA, pegB){
 	this.checkForWin();
 }
 Game.prototype.checkForWin = function(){
+	//important note: optimal solutions can only be computed for 3-peg games. 
+	//winners of 4-peg games will receive unreliable feedback about their performance
 	for (var i=1; i<this.pegs.length; i++){
 		if(this.pegs[i].disks.length == this.disks.length){
 			var fewest_moves_possible = Math.pow(2,this.disks.length)-1;
