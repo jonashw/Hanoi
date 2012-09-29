@@ -26,6 +26,11 @@ function DOMDisplay(game,container){
 		self.unselectPegDisplay();
 		self.display();
 	});
+	EventRegistry.addListener(game, 'won', function(){
+		alert('You won in ' + this.game.movesTaken + ' moves');
+		self.unselectPegDisplay();
+		self.display();
+	});
 	this.container.appendChild(this.moveCountElement);
 	this.container.appendChild(this.restartBtn);
 	this.restartBtn.addEventListener('click',function(){

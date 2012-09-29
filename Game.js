@@ -15,6 +15,7 @@ function Game(num_disks,num_pegs){
 	console.log('Go!');
 }
 Game.prototype.setup = function(){
+	this.victory=false;
 	this.movesTaken=0;
 	for(var i in this.disks){
 		this.pegs[0].pushDisk(this.disks[i]);
@@ -37,6 +38,7 @@ Game.prototype.move = function(src_pegnum, dst_pegnum){
 	this.attemptMove(sPeg,dPeg);
 }
 Game.prototype.attemptMove = function(pegA, pegB){
+	if (this.victory) return;
 	if(pegA.isEmpty()){
 		console.log('Source peg is empty. Try again!');
 		return false;
@@ -49,9 +51,17 @@ Game.prototype.attemptMove = function(pegA, pegB){
 	pegB.pushDisk(pegA.popDisk());
 	this.movesTaken++;
 	console.log('great move!');
-	EventRegistry.notifyListeners(this, 'update');	
 	EventRegistry.notifyListeners(this, 'move_success');	
-
+	this.checkForWin();
+}
+Game.prototype.checkForWin = function(){
+	for (var i=1; i<this.pegs.length; i++){
+		if(this.pegs[i].disks.length == this.disks.length){
+			this.victory = true;
+			console.log('You\'ve won! And it only took you ' + this.movesTaken + ' moves.');
+			EventRegistry.notifyListeners(this, 'won');
+		}
+	}
 }
 Game.prototype.toString = function(){
 	return this.id;
