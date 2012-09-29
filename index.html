@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<script type="text/javascript" src="Disk.js"></script>
+	<script type="text/javascript" src="Peg.js"></script>
+	<script type="text/javascript" src="Game.js"></script>
+	<script type="text/javascript" src="DOMDisplay.js"></script>
+	<script type="text/javascript" src="PegDisplay.js"></script>
+	<script type="text/javascript" src="ConsoleDisplay.js"></script>
+	<script type="text/javascript" src="../Core/EventRegistry.js"></script>
+	<script>
+		function DOMDisplayController(game,domdisplay){
+			this.game=game;
+			this.display=domdisplay;
+		}
+	</script>
+	<script type="text/javascript">
+		var game = new Game(4,3);
+		var display = new ConsoleDisplay(game);
+		var domdisplay;
+		window.onload = function(){
+			domdisplay = new DOMDisplay(game, document.getElementById('towers'));
+			domdisplay.display();
+		};
+	</script>
+	<style>
+		.PegTextArea {
+			height: 130px;
+			width: 100px;
+			cursor: pointer;
+		}
+		.PegTextArea.selected {
+			background:black;
+			color:white;
+		}
+
+	</style>
+</head>
+<body>
+	<h1>Towers of Hanoi</h1>
+	<div id="towers"></div>
+</body>
+</html>
