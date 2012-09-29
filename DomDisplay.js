@@ -27,8 +27,13 @@ function DOMDisplay(game,container){
 		self.unselectPegDisplay();
 		self.display();
 	});
-	EventRegistry.addListener(game, 'won', function(){
-		alert('You won in ' + this.game.movesTaken + ' moves');
+	EventRegistry.addListener(game, 'won', function(optimal_win){
+		if(optimal_win){
+			var suffix = '\n(This is the best possible solution!)';
+		} else {
+			var suffix = '\n(A better solution is possible)';
+		}
+		alert('You won in ' + this.game.movesTaken + ' moves' + suffix);
 		self.unselectPegDisplay();
 		self.display();
 	});

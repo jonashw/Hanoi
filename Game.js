@@ -57,9 +57,16 @@ Game.prototype.attemptMove = function(pegA, pegB){
 Game.prototype.checkForWin = function(){
 	for (var i=1; i<this.pegs.length; i++){
 		if(this.pegs[i].disks.length == this.disks.length){
+			var fewest_moves_possible = Math.pow(2,this.disks.length)-1;
+			var optimal_win = fewest_moves_possible == this.movesTaken;
 			this.victory = true;
-			console.log('You\'ve won! And it only took you ' + this.movesTaken + ' moves.');
-			EventRegistry.notifyListeners(this, 'won');
+			if(optimal_win){
+				var suffix = ' (This is the best possible solution!)';
+			} else {
+				var suffix = ' (a better solution is possible)';
+			}
+			console.log('You\'ve won! And it only took you ' + this.movesTaken + ' moves.' + suffix);
+			EventRegistry.notifyListeners(this, 'won', optimal_win);
 		}
 	}
 }
