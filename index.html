@@ -22,12 +22,22 @@
 		var game = new Game(4);
 		var domdisplay;
 		var ai = new AI(game,{'loopDelay':500});
+		var c;
+		var ctx;
 		window.onload = function(){
 			var towerContainer = document.getElementById('towers'); 
 			domtextdisplay = new DOMTextDisplay(game, towerContainer);
 			domtextdisplay.display();
 			//domgraphicdisplay = new DOMGraphicDisplay(game, towerContainer);
 			//domgraphicdisplay.display();
+
+			//add movecount display element
+			var moveCountElement=document.createElement('div');
+			towerContainer.appendChild(moveCountElement);
+			moveCountElement.innerHTML = 'Moves Taken: 0';
+			EventRegistry.addListener(game, 'move_success', function(){
+				moveCountElement.innerHTML = 'Moves Taken: ' + game.movesTaken;
+			});
 
 			//add a restart button
 			var restartBtn=document.createElement('button');
@@ -52,7 +62,44 @@
 			EventRegistry.addListener(game, 'restarted', function(){
 				aiBtn.style.display = 'block';
 			});
+
+			//canvas tests
+			c=document.createElement('canvas');
+			towerContainer.appendChild(c);
+			ctx=c.getContext('2d');
 		};
+		colors = {
+			'red':'rgb(200,0,0)',
+			'green':'rgb(0,200,0)',
+			'blue':'rgb(0,0,200)',
+			'pink':'rgb(200,0,200)',
+			'yellow':'rgb(200,200,0)',
+			'orange':'rgb(200,100,0)',
+			'purple':'rgb(100,0,200)',
+			'cyan':'rgb(0,200,200)',
+			'black':'rgb(0,0,0)',
+			'darkGray':'rgb(33,33,33)',
+			'mediumGray':'rgb(66,66,66)'
+		};
+		function drawDisk(ctx, x, y, radius, color){
+			ctx.save();
+			ctx.fillStyle=color;
+			ctx.beginPath();
+			ctx.moveTo(x,y);
+			ctx.lineTo(x+radius,y);
+			ctx.lineTo(x+radius,y+5);
+			ctx.lineTo(x-radius,y+5);
+			ctx.lineTo(x-radius,y);
+			ctx.closePath();
+			ctx.fill();
+			ctx.restore();
+		}
+		function drawPeg(ctx, x, y, height){
+			ctx.save();
+			ctx.fillStyle=colors.mediumGray;
+			ctx.fillRect(x,y,5,50);
+			ctx.restore();
+		}
 	</script>
 	<style>
 		.PegTextArea {

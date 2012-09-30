@@ -4,7 +4,6 @@ function DOMTextDisplay(game,container){
 	this.pegElements=[];
 	this.pegDisplays=[];
 	this.selectedPegDisplay = null;
-	this.moveCountElement=document.createElement('div');
 	var self = this;
 	for(var i in this.game.pegs){
 		var maxDiskRadius = this.game.disks.length;
@@ -39,7 +38,6 @@ function DOMTextDisplay(game,container){
 		self.unselectPegDisplay();
 		self.display();
 	});
-	this.container.appendChild(this.moveCountElement);
 }
 DOMTextDisplay.prototype.pegClicked = function(pegDisplay){
 	if(this.selectedPegDisplay){
@@ -74,5 +72,4 @@ DOMTextDisplay.prototype.display = function(){
 	for(var i in this.pegDisplays){
 		this.pegDisplays[i].display();
 	}	
-	this.moveCountElement.innerHTML = 'Moves Taken: ' + game.movesTaken;
 }
