@@ -28,10 +28,14 @@ function DOMDisplay(game,container){
 		self.display();
 	});
 	EventRegistry.addListener(game, 'won', function(optimal_win){
-		if(optimal_win){
-			var suffix = '\n(This is the best possible solution!)';
+		if(self.game.pegs.length == 3){
+			if(optimal_win){
+				var suffix = '\n(This is the best possible solution!)';
+			} else {
+				var suffix = '\n(A better solution is possible)';
+			}
 		} else {
-			var suffix = '\n(A better solution is possible)';
+			var suffix = '\n(Optimal solution could not be computed for this game setup)';
 		}
 		alert('You won in ' + this.game.movesTaken + ' moves' + suffix);
 		self.unselectPegDisplay();

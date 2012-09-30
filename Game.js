@@ -64,10 +64,14 @@ Game.prototype.checkForWin = function(){
 			var fewest_moves_possible = Math.pow(2,this.disks.length)-1;
 			var optimal_win = fewest_moves_possible == this.movesTaken;
 			this.victory = true;
-			if(optimal_win){
-				var suffix = ' (This is the best possible solution!)';
+			if (this.pegs.length == 3){
+				if(optimal_win){
+					var suffix = ' (This is the best possible solution!)';
+				} else {
+					var suffix = ' (a better solution is possible)';
+				}
 			} else {
-				var suffix = ' (a better solution is possible)';
+				var suffix = ' (an optimal solution could not be computed for this game setup)';
 			}
 			console.log('You\'ve won! And it only took you ' + this.movesTaken + ' moves.' + suffix);
 			EventRegistry.notifyListeners(this, 'won', optimal_win);

@@ -18,9 +18,9 @@
 		}
 	</script>
 	<script type="text/javascript">
-		var game = new Game(6);
+		var game = new Game(4);
 		var domdisplay;
-		var ai = new AI(game);
+		var ai = new AI(game,{'loopDelay':500});
 		window.onload = function(){
 			domdisplay = new DOMDisplay(game, document.getElementById('towers'));
 			domdisplay.display();
