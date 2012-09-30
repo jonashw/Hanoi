@@ -8,6 +8,7 @@
 	<script type="text/javascript" src="DOMDisplay.js"></script>
 	<script type="text/javascript" src="PegDisplay.js"></script>
 	<script type="text/javascript" src="ConsoleDisplay.js"></script>
+	<script type="text/javascript" src="AI.js"></script>
 	<script type="text/javascript" src="../Core/EventRegistry.js"></script>
 	<script type="text/javascript" src="../Core/jQuery.js"></script>
 	<script>
@@ -17,8 +18,9 @@
 		}
 	</script>
 	<script type="text/javascript">
-		var game = new Game(4);
+		var game = new Game(6);
 		var domdisplay;
+		var ai = new AI(game);
 		window.onload = function(){
 			domdisplay = new DOMDisplay(game, document.getElementById('towers'));
 			domdisplay.display();

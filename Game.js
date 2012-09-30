@@ -54,6 +54,7 @@ Game.prototype.attemptMove = function(pegA, pegB){
 	//console.log('great move!');
 	EventRegistry.notifyListeners(this, 'move_success');	
 	this.checkForWin();
+	return true;
 }
 Game.prototype.checkForWin = function(){
 	//important note: optimal solutions can only be computed for 3-peg games. 
