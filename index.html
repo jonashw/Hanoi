@@ -22,8 +22,25 @@
 		var domdisplay;
 		var ai = new AI(game,{'loopDelay':500});
 		window.onload = function(){
-			domdisplay = new DOMDisplay(game, document.getElementById('towers'));
+			var towerContainer = document.getElementById('towers'); 
+			domdisplay = new DOMDisplay(game, towerContainer);
 			domdisplay.display();
+
+			//add a button to start AI.. be sure to hide the button when we don't want the user starting AI
+			var aiBtn = document.createElement('button');
+			aiBtn.innerHTML = 'Activate AI';
+			towerContainer.appendChild(aiBtn);
+			aiBtn.style.display = 'block';
+			aiBtn.addEventListener('click',function(){
+				aiBtn.style.display = 'none';	
+				ai.solve();
+			});
+			EventRegistry.addListener(game, 'move_success', function(){
+				aiBtn.style.display = 'none';
+			});
+			EventRegistry.addListener(game, 'restarted', function(){
+				aiBtn.style.display = 'block';
+			});
 		};
 	</script>
 	<style>

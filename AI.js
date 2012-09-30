@@ -4,8 +4,13 @@ function AI(game, options){
 	var options = options ? options : {};
 	this.loopDelay = ('loopDelay' in options) ? options.loopDelay : 20;
 	var self = this;
+	this.timer = null;
 	EventRegistry.addListener(game, 'won', function(){
 		self.success = true;
+	});
+	EventRegistry.addListener(game, 'restarted', function(){
+		if(self.timer) clearTimeout(self.timer);
+		self.success = false;
 	});
 }
 
@@ -45,6 +50,6 @@ AI.prototype.solveLoop = function(){//this is meant to be private
 	if (this.success){
 		console.log('COMPUTER WINS AGAIN. COMPUTER FEELS SO SASSY.          \\o\\  /o/  \\o\\  /o/  \\o\\  /o/  \\o/     BOO YAW.');
 	} else {
-		setTimeout(function(){self.solveLoop()}, this.loopDelay);
+		this.timer = setTimeout(function(){self.solveLoop()}, this.loopDelay);
 	}
 }
