@@ -1,4 +1,4 @@
-function PegDisplay(peg,maxDiskRadius){
+function PegTextDisplay(peg,maxDiskRadius){
 	this.peg = peg;
 	this.id = 'PegDisplay'+Math.random();
 	this.highlighted=false;
@@ -10,7 +10,7 @@ function PegDisplay(peg,maxDiskRadius){
 	this.element.setAttribute('rows',this.peg.height);
 	this.element.setAttribute('cols',(this.maxDiskRadius * 2) - 1);
 }
-PegDisplay.prototype.initListeners = function(){
+PegTextDisplay.prototype.initListeners = function(){
 	var self = this;
 	this.element.addEventListener('click',function(){
 		EventRegistry.notifyListeners(self, 'click', self); 
@@ -19,7 +19,7 @@ PegDisplay.prototype.initListeners = function(){
 		this.blur();
 	});
 }
-PegDisplay.prototype.display = function(){
+PegTextDisplay.prototype.display = function(){
 	var pegHeight = this.peg.height;
 	var pegElement = this.element;
 	this.element.innerHTML = '';
@@ -40,16 +40,16 @@ PegDisplay.prototype.display = function(){
 		pegElement.innerHTML += '\n';
 	}
 }
-PegDisplay.prototype.was_selected = function(){
+PegTextDisplay.prototype.was_selected = function(){
 	this.element.setAttribute('class',this.element.getAttribute('class') + ' selected');
 }
-PegDisplay.prototype.was_unselected = function(){
+PegTextDisplay.prototype.was_unselected = function(){
 	this.element.setAttribute('class',this.element.getAttribute('class').replace('selected',''));
 }
-PegDisplay.prototype.toString = function(){
+PegTextDisplay.prototype.toString = function(){
 	return this.id;	
 }
-PegDisplay.prototype.displayDisk = function(disk, pegElement){
+PegTextDisplay.prototype.displayDisk = function(disk, pegElement){
 	var disk_prefix = '';
 	var disk_suffix = '';
 	for(var i=0; i<this.maxDiskRadius-disk.radius; i++){
