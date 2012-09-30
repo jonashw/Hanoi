@@ -5,8 +5,6 @@ function DOMTextDisplay(game,container){
 	this.pegDisplays=[];
 	this.selectedPegDisplay = null;
 	this.moveCountElement=document.createElement('div');
-	this.restartBtn=document.createElement('button');
-	this.restartBtn.innerHTML = 'Restart';
 	var self = this;
 	for(var i in this.game.pegs){
 		var maxDiskRadius = this.game.disks.length;
@@ -42,10 +40,6 @@ function DOMTextDisplay(game,container){
 		self.display();
 	});
 	this.container.appendChild(this.moveCountElement);
-	this.container.appendChild(this.restartBtn);
-	this.restartBtn.addEventListener('click',function(){
-		self.game.restart();
-	});
 }
 DOMTextDisplay.prototype.pegClicked = function(pegDisplay){
 	if(this.selectedPegDisplay){

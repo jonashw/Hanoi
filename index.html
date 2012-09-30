@@ -29,6 +29,14 @@
 			//domgraphicdisplay = new DOMGraphicDisplay(game, towerContainer);
 			//domgraphicdisplay.display();
 
+			//add a restart button
+			var restartBtn=document.createElement('button');
+			restartBtn.innerHTML = 'Restart';
+			towerContainer.appendChild(restartBtn);
+			restartBtn.addEventListener('click',function(){
+				game.restart();
+			});
+
 			//add a button to start AI.. be sure to hide the button when we don't want the user starting AI
 			var aiBtn = document.createElement('button');
 			aiBtn.innerHTML = 'Activate AI';
