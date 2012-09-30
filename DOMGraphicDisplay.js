@@ -4,23 +4,17 @@ function DOMGraphicDisplay(game,container){
 	this.pegElements=[];
 	this.pegDisplays=[];
 	this.selectedPegDisplay = null;
-	this.moveCountElement=document.createElement('div');
 	this.canvas = document.createElement('canvas');
+	this.ctx = canvas.getContext('2d');
 	this.canvas.setAttribute('height',150);
 	this.canvas.setAttribute('width',450);
 	this.canvas.appendTo(container);
-	this.restartBtn=document.createElement('button');
-	this.restartBtn.innerHTML = 'Restart';
 	var self = this;
 	for(var i in this.game.pegs){
 		var maxDiskRadius = this.game.disks.length;
 		var pegDisplay = new PegDisplay(this.game.pegs[i], maxDiskRadius);
 		this.pegElements.push(pegDisplay.element);
 		this.container.appendChild(pegDisplay.element);
-		pegDisplay.initListeners();
-		EventRegistry.addListener(pegDisplay, 'click', function(pegDisplay){
-			self.pegClicked(pegDisplay)
-		});
 		this.pegDisplays.push(pegDisplay);
 	}
 	EventRegistry.addListener(game, 'move_success', function(){
@@ -32,23 +26,8 @@ function DOMGraphicDisplay(game,container){
 		self.display();
 	});
 	EventRegistry.addListener(game, 'won', function(optimal_win){
-		if(self.game.pegs.length == 3){
-			if(optimal_win){
-				var suffix = '\n(This is the best possible solution!)';
-			} else {
-				var suffix = '\n(A better solution is possible)';
-			}
-		} else {
-			var suffix = '\n(Optimal solution could not be computed for this game setup)';
-		}
-		alert('You won in ' + this.game.movesTaken + ' moves' + suffix);
 		self.unselectPegDisplay();
 		self.display();
-	});
-	this.container.appendChild(this.moveCountElement);
-	this.container.appendChild(this.restartBtn);
-	this.restartBtn.addEventListener('click',function(){
-		self.game.restart();
 	});
 }
 DOMGraphicDisplay.prototype.pegClicked = function(pegDisplay){
@@ -84,5 +63,4 @@ DOMGraphicDisplay.prototype.display = function(){
 	for(var i in this.pegDisplays){
 		this.pegDisplays[i].display();
 	}	
-	this.moveCountElement.innerHTML = 'Moves Taken: ' + game.movesTaken;
 }
