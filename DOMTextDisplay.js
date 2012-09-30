@@ -1,4 +1,4 @@
-function DOMDisplay(game,container){
+function DOMTextDisplay(game,container){
 	this.game = game;
 	this.container = container;
 	this.pegElements=[];
@@ -47,7 +47,7 @@ function DOMDisplay(game,container){
 		self.game.restart();
 	});
 }
-DOMDisplay.prototype.pegClicked = function(pegDisplay){
+DOMTextDisplay.prototype.pegClicked = function(pegDisplay){
 	if(this.selectedPegDisplay){
 		if(this.selectedPegDisplay === pegDisplay){
 			//player wants to unselect
@@ -65,18 +65,18 @@ DOMDisplay.prototype.pegClicked = function(pegDisplay){
 	}
 }
 
-DOMDisplay.prototype.selectPegDisplay = function(pegDisplay){
+DOMTextDisplay.prototype.selectPegDisplay = function(pegDisplay){
 	this.unselectPegDisplay();
 	this.selectedPegDisplay = pegDisplay;
 	this.selectedPegDisplay.was_selected();
 }
 
-DOMDisplay.prototype.unselectPegDisplay = function(){
+DOMTextDisplay.prototype.unselectPegDisplay = function(){
 	if(this.selectedPegDisplay) this.selectedPegDisplay.was_unselected();
 	this.selectedPegDisplay = null;	
 }
 
-DOMDisplay.prototype.display = function(){
+DOMTextDisplay.prototype.display = function(){
 	for(var i in this.pegDisplays){
 		this.pegDisplays[i].display();
 	}	

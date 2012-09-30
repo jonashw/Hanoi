@@ -5,7 +5,8 @@
 	<script type="text/javascript" src="Disk.js"></script>
 	<script type="text/javascript" src="Peg.js"></script>
 	<script type="text/javascript" src="Game.js"></script>
-	<script type="text/javascript" src="DOMDisplay.js"></script>
+	<script type="text/javascript" src="DOMTextDisplay.js"></script>
+	<script type="text/javascript" src="DOMGraphicDisplay.js"></script>
 	<script type="text/javascript" src="PegDisplay.js"></script>
 	<script type="text/javascript" src="ConsoleDisplay.js"></script>
 	<script type="text/javascript" src="AI.js"></script>
@@ -23,8 +24,10 @@
 		var ai = new AI(game,{'loopDelay':500});
 		window.onload = function(){
 			var towerContainer = document.getElementById('towers'); 
-			domdisplay = new DOMDisplay(game, towerContainer);
-			domdisplay.display();
+			domtextdisplay = new DOMTextDisplay(game, towerContainer);
+			domtextdisplay.display();
+			//domgraphicdisplay = new DOMGraphicDisplay(game, towerContainer);
+			//domgraphicdisplay.display();
 
 			//add a button to start AI.. be sure to hide the button when we don't want the user starting AI
 			var aiBtn = document.createElement('button');
