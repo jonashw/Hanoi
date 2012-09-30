@@ -51,7 +51,7 @@ Game.prototype.attemptMove = function(pegA, pegB){
 	}
 	pegB.pushDisk(pegA.popDisk());
 	this.movesTaken++;
-	console.log('great move!');
+	//console.log('great move!');
 	EventRegistry.notifyListeners(this, 'move_success');	
 	this.checkForWin();
 }
