@@ -1,7 +1,7 @@
 var colors = {
 	'red':'rgb(200,0,0)',
 	'green':'rgb(0,200,0)',
-	'blue':'rgb(0,0,200)',
+	'blue':'rgb(50,50,150)',
 	'pink':'rgb(200,0,200)',
 	'yellow':'rgb(200,200,0)',
 	'orange':'rgb(200,100,0)',

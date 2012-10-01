@@ -9,6 +9,9 @@
 	<script type="text/javascript" src="DOMGraphicDisplay.js"></script>
 	<script type="text/javascript" src="PegTextDisplay.js"></script>
 	<script type="text/javascript" src="PegGraphicDisplay.js"></script>
+	<script type="text/javascript" src="PegGraphic.js"></script>
+	<script type="text/javascript" src="DiskGraphic.js"></script>
+	<script type="text/javascript" src="Board.js"></script>
 	<script type="text/javascript" src="ConsoleDisplay.js"></script>
 	<script type="text/javascript" src="AI.js"></script>
 	<script type="text/javascript" src="colors.js"></script>
@@ -26,6 +29,7 @@
 		var ai = new AI(game,{'loopDelay':500});
 		var c;
 		var ctx;
+		var d1,d2;
 		window.onload = function(){
 			var towerContainer = document.getElementById('towers'); 
 			domtextdisplay = new DOMTextDisplay(game, towerContainer);
@@ -66,42 +70,18 @@
 			});
 
 			//canvas tests
-			c=document.createElement('canvas');
-			towerContainer.appendChild(c);
-			ctx=c.getContext('2d');
+			board = new Board(towerContainer);
+			p = new PegGraphic(board.ctx,game.pegs[0], 30, 0);
+			p.draw();
+			d1 = new DiskGraphic(board, game.disks[0], 30, 30, colors.red);
+			d2 = new DiskGraphic(board, game.disks[1], 30, 25, colors.yellow);
+			d3 = new DiskGraphic(board, game.disks[2], 30, 20, colors.blue);
+			d4 = new DiskGraphic(board, game.disks[3], 30, 15, colors.orange);
+			d1.draw();
+			d2.draw();
+			d3.draw();
+			d4.draw();
 		};
-		colors = {
-			'red':'rgb(200,0,0)',
-			'green':'rgb(0,200,0)',
-			'blue':'rgb(0,0,200)',
-			'pink':'rgb(200,0,200)',
-			'yellow':'rgb(200,200,0)',
-			'orange':'rgb(200,100,0)',
-			'purple':'rgb(100,0,200)',
-			'cyan':'rgb(0,200,200)',
-			'black':'rgb(0,0,0)',
-			'darkGray':'rgb(33,33,33)',
-			'mediumGray':'rgb(66,66,66)'
-		};
-		function drawDisk(ctx, x, y, radius, color){
-			ctx.save();
-			ctx.fillStyle=color;
-			ctx.beginPath();
-			ctx.moveTo(x,y);
-			ctx.lineTo(x+radius,y);
-			ctx.lineTo(x+radius,y+5);
-			ctx.lineTo(x-radius,y+5);
-			ctx.lineTo(x-radius,y);
-			ctx.closePath();
-			ctx.fill();
-			ctx.restore();
-		}
-		function drawPeg(ctx, x, y, height){
-			ctx.save();
-			ctx.fillStyle=colors.mediumGray;
-			ctx.fillRect(x,y,5,50);
-			ctx.restore();
-		}
 	</script>
 	<style>
 		.PegTextArea {
