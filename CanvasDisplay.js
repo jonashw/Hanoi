@@ -7,7 +7,7 @@
 function CanvasDisplay(options){
 	var colorOrder = [
 		colors.blue,
-		colors.purple,
+		colors.pink,
 		colors.red,
 		colors.orange,
 		colors.yellow,
@@ -18,7 +18,7 @@ function CanvasDisplay(options){
 	var self = this;
 	for(var d=0; d<game.disks.length; d++){
 		var disk = game.disks[d];
-		disk.graphic = new DiskGraphic({'ctx':self.ctx, 'disk':disk, 'color':colorOrder[d], 'thickness':10, 'radiusFactor':10});
+		disk.graphic = new DiskGraphic({'ctx':self.ctx, 'disk':disk, 'color':colorOrder[d], 'thickness':15, 'radiusFactor':15});
 	}
 	var pegHeight = (this.game.disks.length + 2) * disk.graphic.thickness;
 	var pegSpacing = 2 * (this.game.disks.length + 1) * disk.graphic.radiusFactor;
@@ -40,7 +40,7 @@ function CanvasDisplay(options){
 	this.ctx.translate(0,-this.ctx.canvas.height); //move beneath original position
 }
 CanvasDisplay.prototype.display = function(){
-	this.ctx.clearRect(0,0,500,500);
+	this.ctx.clearRect(0,0,this.ctx.canvas.width,this.ctx.canvas.height);
 	for(var i=0; i<this.game.pegs.length; i++){
 		var peg = this.game.pegs[i];
 		if ('graphic' in peg && peg.graphic){
