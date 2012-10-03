@@ -1,22 +1,22 @@
-function DiskGraphic(board, disk, x, y, color){
-	this.disk=disk;
-	this.x = x;
-	this.y = y;
-	this.color = color;
-	this.thickness = 5;
-	this.radiusFactor = 5;
-	this.ctx=board.ctx;
+function DiskGraphic(options){
+	this.ctx = options.ctx;
+	this.disk = options.disk;
+	this.color = options.color;
+	this.thickness = ('thickness' in options) ? options.thickness : 5;
+	this.radiusFactor = ('radiusFactor' in options) ? options.radiusFactor : 5;
 }
 DiskGraphic.prototype.draw = function(){
+	//console.log('Draw called on ' + this);
 	var radius = this.disk.radius * this.radiusFactor;
-	var thicknessRadius = parseInt(this.thickness/2);
+	var x = this.disk.peg.graphic.x;
+	var y = this.disk.index * this.thickness;
 	this.ctx.save();
 	this.ctx.fillStyle = this.color;
 	this.ctx.beginPath();
-	this.ctx.moveTo(this.x + radius, this.y - thicknessRadius);
-	this.ctx.lineTo(this.x + radius, this.y + thicknessRadius);
-	this.ctx.lineTo(this.x - radius, this.y + thicknessRadius);
-	this.ctx.lineTo(this.x - radius, this.y - thicknessRadius);
+	this.ctx.moveTo(x + radius, y);
+	this.ctx.lineTo(x + radius, y + this.thickness);
+	this.ctx.lineTo(x - radius, y + this.thickness);
+	this.ctx.lineTo(x - radius, y);
 	this.ctx.closePath();
 	this.ctx.fill();
 	this.ctx.restore();
@@ -27,4 +27,7 @@ DiskGraphic.prototype.drawCenter = function(){
 	this.ctx.fillStyle = colors.black;
 	this.ctx.fillRect(this.x,this.y,1,1);
 	this.ctx.restore();
+}
+DiskGraphic.prototype.toString = function(){
+	return 'DiskGraphic' + this.disk.radius;
 }

@@ -13,6 +13,7 @@
 	<script type="text/javascript" src="DiskGraphic.js"></script>
 	<script type="text/javascript" src="Board.js"></script>
 	<script type="text/javascript" src="ConsoleDisplay.js"></script>
+	<script type="text/javascript" src="CanvasDisplay.js"></script>
 	<script type="text/javascript" src="AI.js"></script>
 	<script type="text/javascript" src="colors.js"></script>
 	<script type="text/javascript" src="../Core/EventRegistry.js"></script>
@@ -32,10 +33,19 @@
 		var d1,d2;
 		window.onload = function(){
 			var towerContainer = document.getElementById('towers'); 
+
+			//canvas display
+			canvas=document.createElement('canvas');
+			towerContainer.appendChild(document.createElement('br'));
+			towerContainer.appendChild(canvas);
+			ctx=canvas.getContext('2d');
+
+			//domtext display
 			domtextdisplay = new DOMTextDisplay(game, towerContainer);
 			domtextdisplay.display();
-			//domgraphicdisplay = new DOMGraphicDisplay(game, towerContainer);
-			//domgraphicdisplay.display();
+
+			var canvasDisplay = new CanvasDisplay({'ctx':ctx ,'game':game});
+			canvasDisplay.display();
 
 			//add movecount display element
 			var moveCountElement=document.createElement('div');
@@ -69,18 +79,6 @@
 				aiBtn.style.display = 'block';
 			});
 
-			//canvas tests
-			board = new Board(towerContainer);
-			p = new PegGraphic(board.ctx,game.pegs[0], 30, 0);
-			p.draw();
-			d1 = new DiskGraphic(board, game.disks[0], 30, 30, colors.red);
-			d2 = new DiskGraphic(board, game.disks[1], 30, 25, colors.yellow);
-			d3 = new DiskGraphic(board, game.disks[2], 30, 20, colors.blue);
-			d4 = new DiskGraphic(board, game.disks[3], 30, 15, colors.orange);
-			d1.draw();
-			d2.draw();
-			d3.draw();
-			d4.draw();
 		};
 	</script>
 	<style>

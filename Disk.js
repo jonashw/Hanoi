@@ -1,6 +1,7 @@
 function Disk(radius){
 	this.radius = radius ? radius : 1;
 	this.peg = null;
+	this.graphic = null;
 }
 
 Disk.prototype.isSmallerThan = function(otherDisk){

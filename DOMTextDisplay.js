@@ -7,7 +7,7 @@ function DOMTextDisplay(game,container){
 	var self = this;
 	for(var i in this.game.pegs){
 		var maxDiskRadius = this.game.disks.length;
-		var pegDisplay = new PegTextDisplay(this.game.pegs[i], maxDiskRadius);
+		var pegDisplay = new PegTextDisplay(this.game.pegs[i], maxDiskRadius, this.game.disks.length+2);
 		this.pegElements.push(pegDisplay.element);
 		this.container.appendChild(pegDisplay.element);
 		pegDisplay.initListeners();

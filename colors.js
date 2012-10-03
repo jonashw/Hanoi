@@ -9,5 +9,6 @@ var colors = {
 	'cyan':'rgb(0,200,200)',
 	'black':'rgb(0,0,0)',
 	'darkGray':'rgb(33,33,33)',
-	'mediumGray':'rgb(66,66,66)'
+	'mediumGray':'rgb(66,66,66)',
+	'lightGray':'rgb(99,99,99)'
 };

@@ -3,7 +3,7 @@ function Game(num_disks,num_pegs){
 	this.pegs=[];
 	this.disks=[];
 	for (var i=0; i<num_pegs; i++){
-		this.pegs.push(new Peg(null,num_disks+1));		
+		this.pegs.push(new Peg({'disks':null, 'id':i+1}));		
 	}
 	for (var i=num_disks; i>0; i--){
 		var disk = new Disk(i);
