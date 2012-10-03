@@ -6,10 +6,11 @@
 //in the constructor below, a canvas graphic is assigned to each peg/disk
 function CanvasDisplay(options){
 	var colorOrder = [
-		colors.pink,
 		colors.blue,
-		colors.orange,
+		colors.purple,
 		colors.red,
+		colors.orange,
+		colors.yellow,
 		colors.green
 	];
 	this.ctx = options.ctx;
@@ -17,12 +18,13 @@ function CanvasDisplay(options){
 	var self = this;
 	for(var d=0; d<game.disks.length; d++){
 		var disk = game.disks[d];
-		disk.graphic = new DiskGraphic({'ctx':self.ctx, 'disk':disk, 'color':colorOrder[d]});
+		disk.graphic = new DiskGraphic({'ctx':self.ctx, 'disk':disk, 'color':colorOrder[d], 'thickness':10, 'radiusFactor':10});
 	}
 	var pegHeight = (this.game.disks.length + 2) * disk.graphic.thickness;
+	var pegSpacing = 2 * (this.game.disks.length + 1) * disk.graphic.radiusFactor;
 	for(var p=0; p<game.pegs.length; p++){
 		var peg = this.game.pegs[p];
-		peg.graphic = new PegGraphic({'ctx':self.ctx, 'peg':peg, 'height':pegHeight,'x':peg.id*50, 'y':0});
+		peg.graphic = new PegGraphic({'ctx':self.ctx, 'peg':peg, 'height':pegHeight,'x':peg.id*pegSpacing - (pegSpacing/2), 'y':0});
 	}
 	var self = this;
 	EventRegistry.addListener(this.game, 'move_success', function(){
@@ -33,6 +35,7 @@ function CanvasDisplay(options){
 	});
 	//and finally, adjust the canvas to fit the game pieces
 	this.ctx.canvas.height = pegHeight;
+	this.ctx.canvas.width = this.game.pegs.length * pegSpacing;
 	this.ctx.scale(1,-1); //flip vertically 
 	this.ctx.translate(0,-this.ctx.canvas.height); //move beneath original position
 }
