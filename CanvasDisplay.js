@@ -38,6 +38,10 @@ function CanvasDisplay(options){
 	this.ctx.canvas.width = this.game.pegs.length * pegSpacing;
 	this.ctx.scale(1,-1); //flip vertically 
 	this.ctx.translate(0,-this.ctx.canvas.height); //move beneath original position
+	this.ctx.canvas.addEventListener('click', function(e){
+		console.log(this.relMouseCoords(e));
+		EventRegistry.notifyListeners(this, 'click', this.relMouseCoords(e));
+	});
 }
 CanvasDisplay.prototype.display = function(){
 	this.ctx.clearRect(0,0,this.ctx.canvas.width,this.ctx.canvas.height);

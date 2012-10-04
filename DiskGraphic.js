@@ -4,6 +4,10 @@ function DiskGraphic(options){
 	this.color = options.color;
 	this.thickness = ('thickness' in options) ? options.thickness : 5;
 	this.radiusFactor = ('radiusFactor' in options) ? options.radiusFactor : 5;
+	var self = this;
+	EventRegistry.addListener(this.ctx.canvas, 'click', function(coords){
+		console.log('canvas click detected by ' + self, coords);
+	});
 }
 DiskGraphic.prototype.draw = function(){
 	//console.log('Draw called on ' + this);
