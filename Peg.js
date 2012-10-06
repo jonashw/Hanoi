@@ -3,6 +3,8 @@ function Peg(options){
 	this.disks = ('disks' in options) && options.disks ? options.disks : [];
 	this.topDisk = this.disks.length ? this.disks[this.disks.length-1] : null;//encapsulate!
 	this.graphic = null;
+	this.areagraphic = null;
+	this.selected=false;
 }
 
 Peg.prototype.isEmpty = function(){
@@ -24,5 +26,5 @@ Peg.prototype.empty = function(){
 	this.disks = [];
 }
 Peg.prototype.toString = function(){
-	return 'Peg' & this.id;
+	return 'Peg' + this.id;
 }

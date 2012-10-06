@@ -1,4 +1,5 @@
 var colors = {
+	'white':'rgb(255,255,255)',
 	'red':'rgb(200,0,0)',
 	'green':'rgb(0,200,0)',
 	'blue':'rgb(50,50,150)',
@@ -10,5 +11,6 @@ var colors = {
 	'black':'rgb(0,0,0)',
 	'darkGray':'rgb(33,33,33)',
 	'mediumGray':'rgb(66,66,66)',
-	'lightGray':'rgb(99,99,99)'
+	'gray':'rgb(99,99,99)',
+	'lightGray':'rgb(200,200,200)'
 };

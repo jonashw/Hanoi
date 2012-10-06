@@ -5,22 +5,37 @@ function DiskGraphic(options){
 	this.thickness = ('thickness' in options) ? options.thickness : 5;
 	this.radiusFactor = ('radiusFactor' in options) ? options.radiusFactor : 5;
 	var self = this;
-	EventRegistry.addListener(this.ctx.canvas, 'click', function(coords){
-		console.log('canvas click detected by ' + self, coords);
-	});
+}
+DiskGraphic.prototype.getCenter = function(){
+	var self = this;
+	return {'x':self.disk.peg.graphic.x, 'y': (self.disk.index * self.thickness)};
+}
+DiskGraphic.prototype.getCorners = function(){
+	/*
+			  y1	 
+		x1			x2	
+			  y2 
+	*/
+	var self = this;
+	var center = this.getCenter();
+	var radius = this.disk.radius * this.radiusFactor;
+	return {x1: center.x-radius, x2:center.x+radius , y1:center.y, y2:center.y+self.thickness};
+}
+DiskGraphic.prototype.containsPoint = function(point){
+	var corners = this.getCorners();
+	var y1 = this.ctx.canvas.height-corners.y2;
+	var y2 = this.ctx.canvas.height-corners.y1;
+	return (point.x >= corners.x1 && point.x <= corners.x2) && (point.y >= y1 && point.y <= y2);
 }
 DiskGraphic.prototype.draw = function(){
-	//console.log('Draw called on ' + this);
-	var radius = this.disk.radius * this.radiusFactor;
-	var x = this.disk.peg.graphic.x;
-	var y = this.disk.index * this.thickness;
+	var corners = this.getCorners();
 	this.ctx.save();
 	this.ctx.fillStyle = this.color;
 	this.ctx.beginPath();
-	this.ctx.moveTo(x + radius, y);
-	this.ctx.lineTo(x + radius, y + this.thickness);
-	this.ctx.lineTo(x - radius, y + this.thickness);
-	this.ctx.lineTo(x - radius, y);
+	this.ctx.moveTo(corners.x1, corners.y1);
+	this.ctx.lineTo(corners.x2, corners.y1);
+	this.ctx.lineTo(corners.x2, corners.y2);
+	this.ctx.lineTo(corners.x1, corners.y2);
 	this.ctx.closePath();
 	this.ctx.fill();
 	this.ctx.restore();
@@ -28,8 +43,9 @@ DiskGraphic.prototype.draw = function(){
 }
 DiskGraphic.prototype.drawCenter = function(){
 	this.ctx.save();
+	var center = this.getCenter();
 	this.ctx.fillStyle = colors.black;
-	this.ctx.fillRect(this.x,this.y,1,1);
+	this.ctx.fillRect(center.x,center.y,1,1);
 	this.ctx.restore();
 }
 DiskGraphic.prototype.toString = function(){

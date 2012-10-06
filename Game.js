@@ -2,8 +2,24 @@ function Game(num_disks,num_pegs){
 	var num_pegs = num_pegs ? num_pegs : 3; //3 is the default number of pegs
 	this.pegs=[];
 	this.disks=[];
+	this.selectedPeg = null;
+	var self = this;
 	for (var i=0; i<num_pegs; i++){
 		this.pegs.push(new Peg({'disks':null, 'id':i+1}));		
+		(function(){
+			var peg = self.pegs[i];
+			//console.log(peg);
+			EventRegistry.addListener(peg, 'click', function(){
+				//console.log(peg);
+				if(!self.selectedPeg){//make selection
+					self.selectPeg(peg);
+				} else if(self.selectedPeg === peg){//kill selection
+					self.deselectPeg();
+				} else {//attempt move
+					self.attemptMove(self.selectedPeg,peg);
+				}
+			});
+		})();
 	}
 	for (var i=num_disks; i>0; i--){
 		var disk = new Disk(i);
@@ -14,6 +30,16 @@ function Game(num_disks,num_pegs){
 	console.log('Game initiated with ' + num_disks + ' disks and ' + num_pegs + ' pegs');
 	console.log('You may move with the move command: move(src_peg_num, dst_peg_num)');
 	console.log('Go!');
+}
+Game.prototype.selectPeg = function(peg){
+	this.selectedPeg = peg;
+	this.selectedPeg.selected = true;
+	EventRegistry.notifyListeners(this, 'peg_selection_change');
+}
+Game.prototype.deselectPeg = function(){
+	if(this.selectedPeg) this.selectedPeg.selected = false;
+	this.selectedPeg = null;	
+	EventRegistry.notifyListeners(this, 'peg_selection_change');
 }
 Game.prototype.setup = function(){
 	this.victory=false;
@@ -53,6 +79,7 @@ Game.prototype.attemptMove = function(pegA, pegB){
 	this.movesTaken++;
 	//console.log('great move!');
 	EventRegistry.notifyListeners(this, 'move_success');	
+	this.deselectPeg();
 	this.checkForWin();
 	return true;
 }
