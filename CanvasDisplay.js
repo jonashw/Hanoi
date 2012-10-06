@@ -40,6 +40,18 @@ function CanvasDisplay(options){
 	EventRegistry.addListener(this.game, 'restarted', function(){
 		self.display();
 	});
+	EventRegistry.addListener(game, 'won', function(optimal_win){
+		if(self.game.pegs.length == 3){
+			if(optimal_win){
+				var suffix = '\n(This is the best possible solution!)';
+			} else {
+				var suffix = '\n(A better solution is possible)';
+			}
+		} else {
+			var suffix = '\n(Optimal solution could not be computed for this game setup)';
+		}
+		alert('You won in ' + self.game.movesTaken + ' moves' + suffix);
+	});
 	//and finally, adjust the canvas to fit the game pieces
 	this.ctx.canvas.height = pegHeight;
 	this.ctx.canvas.width = this.game.pegs.length * pegSpacing;
