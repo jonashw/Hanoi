@@ -53,13 +53,13 @@
 			var moveCountElement=document.createElement('div');
 			towerContainer.appendChild(moveCountElement);
 			moveCountElement.innerHTML = 'Moves Taken: 0';
-			EventRegistry.addListener(game, 'move_success', function(){
+			EventRegistry.addListener(game, 'restarted move_success', function(){
 				moveCountElement.innerHTML = 'Moves Taken: ' + game.movesTaken;
 			});
 
 			//add a restart button
 			var restartBtn=document.createElement('button');
-			restartBtn.innerHTML = 'Restart';
+			restartBtn.innerHTML = 'Reset';
 			towerContainer.appendChild(restartBtn);
 			restartBtn.addEventListener('click',function(){
 				game.restart();

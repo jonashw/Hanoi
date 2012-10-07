@@ -58,7 +58,7 @@ Game.prototype.restart = function(){
 		this.pegs[i].empty();
 	}
 	this.setup();
-	console.log('Game restarted');
+	console.log('Game reset');
 	EventRegistry.notifyListeners(this, 'restarted');
 	this.deselectPeg();
 	this.victory=false;
