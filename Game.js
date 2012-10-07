@@ -55,6 +55,7 @@ Game.prototype.restart = function(){
 	this.setup();
 	console.log('Game restarted');
 	EventRegistry.notifyListeners(this, 'restarted');
+	this.deselectPeg();
 }
 
 Game.prototype.move = function(src_pegnum, dst_pegnum){
