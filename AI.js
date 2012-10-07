@@ -34,7 +34,7 @@ AI.prototype.solve = function(){
 	this.currentMode = null;
 	this.i = 0;
 	console.log('PUNY HUMAN. COMPUTER SHALL SOLVE THE PUZZLE FOR YOU.');
-	this.solveLoop();
+	this.solveLoop();//start the solver!
 }
 
 AI.prototype.solveLoop = function(){//this is meant to be private
@@ -42,7 +42,12 @@ AI.prototype.solveLoop = function(){//this is meant to be private
 	var leftPeg = this.pegs[currentMode[0]];
 	var rightPeg = this.pegs[currentMode[1]];
 	//the ai is reckless.  it tries moving left to right each time, only right to left if the first fails.
-	if(!this.game.attemptMove(leftPeg, rightPeg)) this.game.attemptMove(rightPeg, leftPeg);
+	//if(!this.game.attemptMove(leftPeg, rightPeg)) this.game.attemptMove(rightPeg, leftPeg);
+	if(leftPeg.topDisk && leftPeg.topDisk.canMoveToPeg(rightPeg)){
+		this.game.attemptMove(leftPeg, rightPeg);
+	} else {
+		this.game.attemptMove(rightPeg, leftPeg);
+	}
 	//there are exactly three move modes that are used in rotation, regardless of the number of disks
 	if(++this.i > 2) this.i=0;
 	var self = this;
